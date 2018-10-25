@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.kali</groupId>
+	<artifactId>sample-spring-cloud</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<spring-cloud-dependencies.version>Finchley.SR1</spring-cloud-dependencies.version>
+		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+	</properties>
+
+	<!-- Compatibility of version between spring-boot-starter-parent & spring-cloud-dependencies -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.5.RELEASE</version>
+		<relativePath /><!-- lookup parent from repository -->
+	</parent>
+
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- spring-cloud-dependencies declared as a BOM for dependency management -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- Swagger Core -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${springfox-swagger2.version}</version>
+			</dependency>
+			
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- Mandatory -->
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>config-server</module>
+		<module>discovery-service</module>
+		<module>employee-service</module>
+		<module>organization-service</module>
+		<module>gateway-service</module>
+		<module>department-service</module>
+	</modules>
+
+</project>

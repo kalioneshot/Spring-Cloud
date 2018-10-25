@@ -1,0 +1,16 @@
+# Override server port.
+server:
+  port: ${PORT:8061}
+
+# Instance discovery serveur.
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # When running a standalone instance, it doesn't really get us anywhere except printing some errors in the logs during startup.
+    # We can either exclude spring-cloud-starter-netflix-eureka-client from the starter dependencies 
+    # or disable discovery client unsing configuration properties as below (registerWithEureka, fetchRegistry) :
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

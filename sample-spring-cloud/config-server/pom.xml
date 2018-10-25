@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.kali</groupId>
+		<artifactId>sample-spring-cloud</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>config-server</artifactId>
+	<description>Building configuration server with Spring Cloud Config</description>
+
+	<dependencies>
+		<!-- To enable Spring Cloud Config feature for an application, first include 
+			spring-cloud-config-server to your project dependencies -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+	    <resources>
+	        <resource>
+	            <directory>src/main/resources</directory>
+	            <filtering>true</filtering>
+	        </resource>
+    	</resources>
+    
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<!-- Profiles Manager. -->
+	<profiles>
+		<!-- If you would like to start configuration server with file system back-end you have to activate Spring Boot profile "native". -->
+		<!-- Else must provide a Git URL.  -->
+	    <profile>
+	        <id>dev</id>
+	        <activation>
+	            <activeByDefault>true</activeByDefault>
+	        </activation>
+	        <properties>
+	        	<!-- Equals : -Dspring.profiles.active=native -->
+	            <spring.profiles.active>native</spring.profiles.active>
+	        </properties>
+	    </profile>
+	</profiles>
+
+</project>

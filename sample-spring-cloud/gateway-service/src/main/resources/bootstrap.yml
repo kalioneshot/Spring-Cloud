@@ -1,0 +1,7 @@
+# Application has to fetch configuration from a remote server, so we should only provide bootstrap.yml file with service name and server URL.
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    config:
+      uri: http://localhost:8088

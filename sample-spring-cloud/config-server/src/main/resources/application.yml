@@ -1,0 +1,4 @@
+# See the profile manager from Maven.
+spring:
+   profiles:
+      active: "@spring.profiles.active@"

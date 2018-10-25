@@ -1,0 +1,75 @@
+server:
+  port: ${PORT:8060}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8061/eureka/
+    
+logging:
+  pattern: 
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+# Security
+management:
+   security:
+      enabled: false
+
+# The routing parameters zuul.routes.api-xxx.path and zuul.routes.api-xxx.serviceId are optional. 
+# In fact, if they are not notified, Zuul will contact Eureka to deduce the default routing rules.
+zuul:
+   # Spring Cloud Zuul by default exposes all services registred in Eureka Server. 
+   # If you would like to skip the automatic addition of every service, you have to set
+   # the zuul.ignoredServices property with a pattern matched to all ignored service namSes
+   # from a discovery server.
+   ignoredServices: '*'
+   # Service will be mapped under the /api URI
+   prefix: /api
+#  Uncomment to disable auto-registering all services read from Eureka
+   routes:
+#      test:
+#         path: /redirect/**
+#         url: http://google.com
+      api-uaa:
+         path: /uaa/**
+#         sensitiveHeaders:
+         serviceId: auth-server
+      api-employee:
+         path: /employee-service/**
+#         sensitiveHeaders:
+         serviceId: employee-service
+      api-department:
+         path: /department-service/**
+#         sensitiveHeaders:
+         serviceId: department-service
+      api-organisation:
+         path: /organization-service/**
+#         sensitiveHeaders:
+         serviceId: organization-service  
+#    static:
+#      path: /static/**
+
+# DataSource Configuration for the security. 
+#spring:
+#   datasource:
+#      url: jdbc:mysql://192.168.99.100:33306/oath2?useSSL=false
+#      username: default
+#      password: default
+      
+#security:
+#   oauth2:
+#      sso:
+#         loginPath: /uaa/login      
+#      client:
+#         accessTokenUri: http://localhost:8765/uua/oauth/token
+#         userAuthorizationUri: http://localhost:8765/uua/oauth/authorize
+#         clientId: acme
+#         clientSecret: secret
+#         clientAuthenticationScheme: form   
+#      resource:
+#         userInfoUri: http://localhost:9999/user
+#         preferTokenInfo: false  
+#   sessions: ALWAYS 
+
+
+
