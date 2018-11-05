@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import com.kali.services.employee.model.Employee;
 import com.kali.services.employee.repository.EmployeeRepository;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 /**
  * The main class of application that enables Discovery Client for the
  * microservice.
@@ -17,6 +19,7 @@ import com.kali.services.employee.repository.EmployeeRepository;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableSwagger2
 public class EmployeeApplication {
 
 	public static void main(String[] args) {

@@ -15,6 +15,11 @@ management:
    security:
       enabled: false
 
+# Mandatory, activate the Load balancer server for client.
+ribbon:
+   eureka: 
+      enabled: true
+      
 # The routing parameters zuul.routes.api-xxx.path and zuul.routes.api-xxx.serviceId are optional. 
 # In fact, if they are not notified, Zuul will contact Eureka to deduce the default routing rules.
 zuul:
@@ -38,10 +43,6 @@ zuul:
          path: /employee-service/**
 #         sensitiveHeaders:
          serviceId: employee-service
-      api-department:
-         path: /department-service/**
-#         sensitiveHeaders:
-         serviceId: department-service
       api-organisation:
          path: /organization-service/**
 #         sensitiveHeaders:
