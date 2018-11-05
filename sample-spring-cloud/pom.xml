@@ -62,7 +62,6 @@
 		<module>employee-service</module>
 		<module>organization-service</module>
 		<module>gateway-service</module>
-		<module>department-service</module>
 	</modules>
 
 </project>
