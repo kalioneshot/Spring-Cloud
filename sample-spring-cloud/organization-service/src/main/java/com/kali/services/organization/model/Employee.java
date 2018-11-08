@@ -9,6 +9,7 @@ package com.kali.services.organization.model;
 public class Employee {
 
 	private Long id;
+	private Long organizationId;
 	private String name;
 	private int age;
 	private String position;
@@ -17,7 +18,8 @@ public class Employee {
 
 	}
 
-	public Employee(String name, int age, String position) {
+	public Employee(Long organizationId, String name, int age, String position) {
+		this.organizationId = organizationId;
 		this.name = name;
 		this.age = age;
 		this.position = position;
@@ -29,6 +31,14 @@ public class Employee {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getOrganizationId() {
+		return organizationId;
+	}
+
+	public void setOrganizationId(Long organizationId) {
+		this.organizationId = organizationId;
 	}
 
 	public String getName() {
@@ -57,7 +67,8 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", position=" + position + "]";
+		return "Employee [id=" + id + ", organizationId=" + organizationId + ", name=" + name + ", position=" + position
+				+ "]";
 	}
 
 }

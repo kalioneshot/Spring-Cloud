@@ -1,0 +1,24 @@
+[
+		{  
+	      "id":1,
+	      "organizationId":1,
+	      "name":"John Smith",
+	      "age":34,
+	      "position":"Analyst"
+	   },
+	   {  
+	      "id":2,
+	      "organizationId":1,
+	      "name":"Darren Hamilton",
+	      "age":37,
+	      "position":"Manager"
+	   },
+	   {  
+	      "id":3,
+	      "organizationId":1,
+	      "name":"Tom Scott",
+	      "age":26,
+	      "position":"Developer"
+	   }
+   
+]

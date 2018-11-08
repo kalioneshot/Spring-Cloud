@@ -19,9 +19,12 @@ import com.kali.services.organization.model.Employee;
  * @author kali
  *
  */
-@FeignClient(name = "employee-service")
+//@FeignClient(name = "employee-service", fallback = EmployeeClientFallback.class, qualifier = "employeeClientID", primary = false)
+@FeignClient(name = "employee-service", qualifier = "employeeClientID")
 public interface EmployeeClient {
 
+	// We can use the cache to realize a fallback implementation.
+	// @CachePut("employeeList")
 	@GetMapping("/organization/{organizationId}")
 	List<Employee> findByOrganization(@PathVariable("organizationId") Long organizationId);
 

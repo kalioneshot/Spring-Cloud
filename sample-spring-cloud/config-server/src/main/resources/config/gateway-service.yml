@@ -39,14 +39,17 @@ zuul:
          path: /uaa/**
 #         sensitiveHeaders:
          serviceId: auth-server
+         sensitiveHeaders:
       api-employee:
          path: /employee-service/**
 #         sensitiveHeaders:
          serviceId: employee-service
+         sensitiveHeaders:
       api-organisation:
          path: /organization-service/**
 #         sensitiveHeaders:
          serviceId: organization-service  
+         sensitiveHeaders: 
 #    static:
 #      path: /static/**
 

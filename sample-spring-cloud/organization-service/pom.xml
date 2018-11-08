@@ -23,10 +23,6 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.cloud</groupId> -->
-<!-- 			<artifactId>spring-cloud-openfeign-core</artifactId> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -43,6 +39,35 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+
+		<!-- SUPPLIER SIDE -->
+		<!-- The library to verify that our controller implements the contract -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- CONSUMER SIDE -->
+		<!-- The library allows to use the supplier-generated stub -->
+		<!-- We need to replace the wiremock dependency with that of Spring Cloud, 
+			otherwise we will have an exception -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-wiremock</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -51,7 +76,24 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- SUPPLIER SIDE -->
+			<!-- The plugin that will allow to generate * the tests from the contract 
+				and generate the stubs that will be used on the * consumer side. -->
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>2.0.2.RELEASE</version>
+				<!-- Don't forget about this value !! -->
+				<extensions>true</extensions>
+				<configuration>
+					<!-- Provide the base class for your auto-generated tests -->
+					<baseClassForTests>com.kali.services.organization.OrganizationContractBase</baseClassForTests>
+				</configuration>
+			</plugin>
+
 		</plugins>
+
 	</build>
 
 </project>

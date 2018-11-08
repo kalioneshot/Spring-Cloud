@@ -14,7 +14,6 @@ public class Organization {
 	private Long id;
 	private String name;
 	private String address;
-	private List<Department> departments = new ArrayList<>();
 	private List<Employee> employees = new ArrayList<>();
 
 	public Organization() {
@@ -48,14 +47,6 @@ public class Organization {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public List<Department> getDepartments() {
-		return departments;
-	}
-
-	public void setDepartments(List<Department> departments) {
-		this.departments = departments;
 	}
 
 	public List<Employee> getEmployees() {

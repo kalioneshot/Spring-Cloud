@@ -5,13 +5,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kali.services.organization.client.DepartmentClient;
 import com.kali.services.organization.client.EmployeeClient;
 import com.kali.services.organization.model.Organization;
 import com.kali.services.organization.repository.OrganizationRepository;
@@ -35,9 +35,7 @@ public class OrganizationController {
 	private OrganizationRepository repository;
 
 	@Autowired
-	private DepartmentClient departmentClient;
-
-	@Autowired
+	@Qualifier("employeeClientID")
 	private EmployeeClient employeeClient;
 
 	@PostMapping
@@ -48,7 +46,7 @@ public class OrganizationController {
 
 	@GetMapping
 	public List<Organization> findAll() {
-		LOGGER.info("Organization find");
+		LOGGER.info("Organization find -------");
 		return repository.findAll();
 	}
 
@@ -56,22 +54,6 @@ public class OrganizationController {
 	public Organization findById(@PathVariable("id") Long id) {
 		LOGGER.info("Organization find: id={}", id);
 		return repository.findById(id);
-	}
-
-	@GetMapping("/{id}/with-departments")
-	public Organization findByIdWithDepartments(@PathVariable("id") Long id) {
-		LOGGER.info("Organization find: id={}", id);
-		Organization organization = repository.findById(id);
-		organization.setDepartments(departmentClient.findByOrganization(organization.getId()));
-		return organization;
-	}
-
-	@GetMapping("/{id}/with-departments-and-employees")
-	public Organization findByIdWithDepartmentsAndEmployees(@PathVariable("id") Long id) {
-		LOGGER.info("Organization find: id={}", id);
-		Organization organization = repository.findById(id);
-		organization.setDepartments(departmentClient.findByOrganizationWithEmployees(organization.getId()));
-		return organization;
 	}
 
 	@GetMapping("/{id}/with-employees")
