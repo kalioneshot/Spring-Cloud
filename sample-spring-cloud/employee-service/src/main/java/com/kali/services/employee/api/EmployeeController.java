@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kali.services.employee.model.Employee;
 import com.kali.services.employee.repository.EmployeeRepository;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 /**
  * Employee API
@@ -49,10 +50,13 @@ public class EmployeeController {
 	/**
 	 * Find a employee
 	 * 
+	 * @HystrixCommand(fallbackMethod = "defaultStores")
+	 * 
 	 * @param id : The employee's ID.
 	 * @return a {@link Employee}
 	 */
 	@GetMapping("/{id}")
+	@HystrixCommand
 	public Employee findById(@PathVariable("id") Long id) {
 		LOGGER.info("Employee find: id={}", id);
 		return repository.findById(id);
@@ -67,18 +71,6 @@ public class EmployeeController {
 	public List<Employee> findAll() {
 		LOGGER.info("Employee find");
 		return repository.findAll();
-	}
-
-	/**
-	 * Get employees by ID of department.
-	 * 
-	 * @param departmentId : The ID of department.
-	 * @return a {@link List<Employee>} object.
-	 */
-	@GetMapping("/department/{departmentId}")
-	public List<Employee> findByDepartment(@PathVariable("departmentId") Long departmentId) {
-		LOGGER.info("Employee find: departmentId={}", departmentId);
-		return repository.findByDepartment(departmentId);
 	}
 
 	/**

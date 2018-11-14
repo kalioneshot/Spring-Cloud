@@ -44,11 +44,12 @@ public class ZuulGatewayProxyApplication {
 		return new MyPreFilter();
 	}
 
-//	@Bean
-//	public DataSource dataSource() {
-//		return DataSourceBuilder.create().url("jdbc:mysql://192.168.99.100:33306/oauth2?useSSL=false")
-//				.username("default").password("default").driverClassName("com.mysql.jdbc.Driver").build();
-//	}
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(user);
+//    }
 
 // ADD Filters
 //    @Bean

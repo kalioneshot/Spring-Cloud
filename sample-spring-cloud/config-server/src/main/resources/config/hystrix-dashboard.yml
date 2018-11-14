@@ -1,0 +1,31 @@
+# HTTP (Tomcat) port
+server:
+   port: ${PORT:9000}
+      
+# Enable the below property for /hystrix.stream endpoint to be able to access. 
+management:
+   endpoints:
+      web:
+         exposure:
+            include: hystrix.stream
+         # base-path: /actuator
+         # Customizing the Management Endpoint Paths : 
+         # Unless the management port has been configured to expose endpoints by using a different HTTP port, 
+         # management.endpoints.web.base-path is relative to server.servlet.context-path. 
+         # If management.server.port is configured, management.endpoints.web.base-path is relative to management.server.servlet.context-path
+         # Default http://localhost:9000/actuator/hystrix.stream
+         # Customizing http://localhost:9000/metrics/hystrix.stream
+         # base-path: /
+
+# Discovery Server Access
+eureka:
+   client:
+      serviceUrl:
+         defaultZone: ${DISCOVERY_URL:http://localhost:8061}/eureka/
+         
+turbine:
+   clusterNameExpression: new String("default")
+   appConfig: employee-service
+   combineHostPort: true   
+   instanceUrlSuffix:
+      default: actuator/hystrix.stream

@@ -9,6 +9,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-cloud-dependencies.version>Finchley.SR1</spring-cloud-dependencies.version>
 		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
 	</properties>
@@ -114,6 +115,7 @@
 		<module>employee-service</module>
 		<module>organization-service</module>
 		<module>gateway-service</module>
+		<module>hystrix-dashboard</module>
 	</modules>
 
 </project>

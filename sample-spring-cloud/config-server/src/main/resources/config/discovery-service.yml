@@ -1,16 +1,32 @@
-# Override server port.
+# HTTP (Tomcat) port
 server:
-  port: ${PORT:8061}
+   port: ${PORT:8061}
 
-# Instance discovery serveur.
+
+# ----------------------------- 
+# ---------
+# Configure this Discovery Server
+# ---------
+#----------------------------- 
 eureka:
-  instance:
-    hostname: localhost
-  client:
-    # When running a standalone instance, it doesn't really get us anywhere except printing some errors in the logs during startup.
-    # We can either exclude spring-cloud-starter-netflix-eureka-client from the starter dependencies 
-    # or disable discovery client unsing configuration properties as below (registerWithEureka, fetchRegistry) :
-    registerWithEureka: false
-    fetchRegistry: false
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+   instance:
+      hostname: localhost
+      
+   client:
+   
+       # When running a standalone instance, it doesn't really get us anywhere except printing some errors in the logs during startup.
+       # We can either exclude spring-cloud-starter-netflix-eureka-client from the starter dependencies 
+       # or disable discovery client unsing configuration properties as below (registerWithEureka, fetchRegistry) :
+      registerWithEureka: false
+      fetchRegistry: false
+        
+      serviceUrl:
+         defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+         
+   server:
+   
+      # Red message on the Euraka dashboard.
+      # Eureka provides a special mechanism by which the registry stops expiring entries when it detects that an certain number of services didn't renew their lease time.
+      # That mechanism is called self-preservation and of course, it should not be disabled in production.
+      enableSelfPreservation: false
+                  

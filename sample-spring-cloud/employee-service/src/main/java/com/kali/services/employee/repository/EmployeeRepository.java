@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.kali.services.employee.model.Employee;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 /**
  * Employee Repository.
@@ -35,12 +36,25 @@ public class EmployeeRepository {
 	 * @param id : The emplyee's ID.
 	 * @return a {@link Employee} object.
 	 */
+	@HystrixCommand(fallbackMethod = "getDefaultEmployee")
 	public Employee findById(Long id) {
+		if (id.equals(Long.valueOf(100))) {
+			throw new RuntimeException("ID Employee = 100 --> call Fallback function. ");
+		}	
 		Optional<Employee> employee = employees.stream().filter(a -> a.getId().equals(id)).findFirst();
-		if (employee.isPresent())
+		if (employee.isPresent()) {
 			return employee.get();
-		else
+		} else
 			return null;
+	}
+
+	/**
+	 * The fallback function.
+	 * 
+	 * @return a {@link Employee} object.
+	 */
+	public Employee getDefaultEmployee(Long id) {
+		return new Employee(Long.valueOf(0), "fallback", 0, "");
 	}
 
 	/**
@@ -50,16 +64,6 @@ public class EmployeeRepository {
 	 */
 	public List<Employee> findAll() {
 		return employees;
-	}
-
-	/**
-	 * Get employees from the department ID.
-	 * 
-	 * @param departmentId : The department ID.
-	 * @return a {@link List<Employee>} object.
-	 */
-	public List<Employee> findByDepartment(Long departmentId) {
-		return employees.stream().filter(a -> a.getDepartmentId().equals(departmentId)).collect(Collectors.toList());
 	}
 
 	/**
