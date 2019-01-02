@@ -1,7 +1,52 @@
 # HTTP (Tomcat) port
 server:
-  port: ${PORT:8092}
+   port: ${PORT:8062}
+      
+# ===============================
+# DATABASE
+# ===============================
+spring:
+   datasource:
+      # To make sure the H2 Web Console can access the database we’ll have to append 
+      # DB_CLOSE_DELAY=-1 and DB_CLOSE_ON_EXIT=FALSE to the spring.datasource.url property.
+      # url: jdbc:h2:mem:oauth;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      url: jdbc:h2:mem:oauth;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MV_STORE=FALSE;MVCC=FALSE
+      platform: h2
+      username: sa
+      password:
+      driverClassName: org.h2.Driver
+      # schema: classpath:/script/schema.sql
+      # data: classpath:/script/data.sql
+   jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+      hibernate:
+         ddl-auto: update
+      properties:
+         hibernate:
+            show_sql: false
+            use_sql_comments: false
+            format_sql: false
+            
+   # You can launch up H2 Console at http://localhost:8062/h2-console.     
+   # Enabling H2 Console 
+   h2:
+      console:
+         enabled: true # enable the console.
+         path: /h2-console # path at which the console will be available.
+         settings:
+            trace: false # enable trace output.
+            web-allow-others: false # enable remote access.
+                   
+# ----------------------------- 
+# ---------
+# Spring securiry configuration
+# ---------
+#----------------------------- 
 
+security:
+   oauth2:
+      resource:
+         id: my_resource_id
 
 # ----------------------------- 
 # ---------
@@ -38,14 +83,17 @@ eureka:
       healthcheck:
          enabled: true    
          
-         
+
 # ----------------------------- 
 # ---------
 # Log configuration
 # ---------
-#-----------------------------              
+#-----------------------------   
 logging:
-   pattern: 
-      console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+   level:
+      org.springframework.security: DEBUG
+      com.kali.services: DEBUG
+   pattern:
+      console: "%d{yyyy-MM-dd HH:mm:ss} [${LOG_LEVEL_PATTERN}]- %msg%n"
     
-   
+    

@@ -12,6 +12,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-cloud-dependencies.version>Finchley.SR1</spring-cloud-dependencies.version>
 		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+		<lombok.version>1.16.16</lombok.version>
 	</properties>
 
 	<!-- Compatibility of version between spring-boot-starter-parent & spring-cloud-dependencies -->
@@ -40,6 +41,13 @@
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger2</artifactId>
 				<version>${springfox-swagger2.version}</version>
+			</dependency>
+
+			<!-- Lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok.version}</version>
 			</dependency>
 
 		</dependencies>
@@ -116,6 +124,7 @@
 		<module>organization-service</module>
 		<module>gateway-service</module>
 		<module>hystrix-dashboard</module>
+		<module>auth-server</module>
 	</modules>
 
 </project>

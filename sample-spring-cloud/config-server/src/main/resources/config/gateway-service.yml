@@ -60,7 +60,9 @@ zuul:
          path: /uaa/**
 #         sensitiveHeaders:
          serviceId: auth-server
-         sensitiveHeaders:
+         # Exclude authorization from sensitive headers
+         sensitiveHeaders: Cookie,Set-Cookie
+         stripPrefix: false
       api-employee:
          path: /employee-service/**
 #         sensitiveHeaders:
